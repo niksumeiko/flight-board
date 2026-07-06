@@ -1,0 +1,52 @@
+{
+    "name": "flight-board",
+    "version": "1.0.0",
+    "private": true,
+    "type": "module",
+    "description": "A programming kata — refactor inlined test stubs into a builder (design pattern)",
+    "engines": {
+        "node": ">=22.18.0"
+    },
+    "scripts": {
+        "start": "concurrently -k -s first -n api,app \"node server/index.ts\" \"vite\"",
+        "start:api": "node server/index.ts",
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "preview": "vite preview",
+        "lint": "eslint 'src/**/*.{ts,tsx}' --report-unused-disable-directives --fix",
+        "format": "prettier --write 'src/**/*.{ts,tsx,css,md}'",
+        "test:unit": "vitest run -c vitest.unit.config.ts",
+        "test:integration": "playwright test -c playwright-ct.config.ts --ui",
+        "test:integration:headless": "playwright test -c playwright-ct.config.ts"
+    },
+    "license": "MIT",
+    "dependencies": {
+        "@tanstack/react-query": "^5.101.0",
+        "classnames": "^2.5.1",
+        "cors": "^2.8.6",
+        "express": "^5.2.1",
+        "react": "^19.2.4",
+        "react-dom": "^19.2.4",
+        "react-router-dom": "7.16.0",
+        "tailwindcss": "^4.2.2",
+        "typescript": "^5.7.3",
+        "vite": "^6.0.7",
+        "zod": "^4.4.3"
+    },
+    "devDependencies": {
+        "@playwright/experimental-ct-react": "^1.59.1",
+        "@playwright/test": "^1.59.1",
+        "@tailwindcss/vite": "^4.2.2",
+        "@types/cors": "^2.8.19",
+        "@types/express": "^5.0.6",
+        "@types/node": "^22.10.0",
+        "@types/react": "^19.2.14",
+        "@types/react-dom": "^19.2.3",
+        "@vitejs/plugin-react": "^4.3.4",
+        "concurrently": "^9.1.0",
+        "msw": "^2.7.0",
+        "playwright": "^1.60.0",
+        "prettier": "^3.8.1",
+        "vitest": "^2.1.8"
+    }
+}
