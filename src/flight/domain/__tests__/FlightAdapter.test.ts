@@ -2,6 +2,7 @@ import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest';
 import { http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
 import { fetchClosestFlight } from '../FlightAdapter.ts';
+import { createFlight } from '../FlightBuilder.stub.ts';
 
 const server = setupServer();
 

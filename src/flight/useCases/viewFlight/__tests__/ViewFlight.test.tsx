@@ -1,5 +1,6 @@
 import { expect, test } from '../../../../../playwright/test';
 import { App } from '../../../../App.tsx';
+import { createFlight } from '../../../domain/FlightBuilder.stub.ts';
 
 test('shows the closest flight', async ({ mount, page }) => {
     await page.route('**/api/v1/flight', (route) =>

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { createFlightPageModel } from '../FlightPageModelService.ts';
+import { createFlight } from '../../../domain/FlightBuilder.stub.ts';
 
 describe('flight page model', () => {
     it('returns model when the flight is being fetched', () => {
