@@ -5,6 +5,9 @@ type FlightBuilder = Flight & BuilderMethods;
 type BuilderMethods = {
     withDeparture(airport: string, time?: string): FlightBuilder;
     withArrival(airport: string, time?: string): FlightBuilder;
+    withoutStops(): FlightBuilder;
+    withStops(stops: number): FlightBuilder;
+    withPrice(value: number, currency: string, precision?: number): FlightBuilder;
 };
 
 export const createFlight = (id = 'DEFAULT_FLIGHT_ID'): FlightBuilder => {
@@ -36,6 +39,23 @@ export const createFlight = (id = 'DEFAULT_FLIGHT_ID'): FlightBuilder => {
 
             return builder;
         },
+        withoutStops() {
+            state.stops = 0;
+
+            return builder;
+        },
+        withStops(stops: number) {
+            state.stops = stops;
+
+            return builder;
+        },
+        withPrice(value: number, currency: string, precision = 2) {
+            state.price.value = value * (10 ** precision);
+            state.price.currency = currency;
+            state.price.precision = precision;
+
+            return builder;
+        }
     };
 
     const builder = state as FlightBuilder;
@@ -44,7 +64,7 @@ export const createFlight = (id = 'DEFAULT_FLIGHT_ID'): FlightBuilder => {
         Object.entries(methods).map(([key, value]) => [key, {
             value,
             enumerable: false,
-            writable: true,
+            writable: false,
         }]),
     ))
 
