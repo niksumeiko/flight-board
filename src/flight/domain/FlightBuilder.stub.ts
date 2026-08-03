@@ -1,3 +1,12 @@
+import { Flight } from './FlightService.ts';
+
+type FlightBuilder = Flight & BuilderMethods;
+
+type BuilderMethods = {
+    withDeparture(airport: string, time?: string): FlightBuilder;
+    withArrival(airport: string, time?: string): FlightBuilder;
+};
+
 export const createFlight = (id = 'DEFAULT_FLIGHT_ID'): FlightBuilder => {
     const state = {
         id,
@@ -12,20 +21,32 @@ export const createFlight = (id = 'DEFAULT_FLIGHT_ID'): FlightBuilder => {
         },
         stops: 1,
         price: { value: 100, precision: 2, currency: 'EUR' },
+    };
 
+    const methods: BuilderMethods = {
         withDeparture(airport: string, time = state.departure.time) {
             state.departure.airport = airport;
             state.departure.time = time;
 
-            return state;
+            return builder;
         },
         withArrival(airport: string, time = state.arrival.time) {
             state.arrival.airport = airport;
             state.arrival.time = time;
 
-            return state;
+            return builder;
         },
     };
 
-    return state;
+    const builder = state as FlightBuilder;
+
+    Object.defineProperties(builder, Object.fromEntries(
+        Object.entries(methods).map(([key, value]) => [key, {
+            value,
+            enumerable: false,
+            writable: true,
+        }]),
+    ))
+
+    return builder;
 };
