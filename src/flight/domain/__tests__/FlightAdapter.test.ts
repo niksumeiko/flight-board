@@ -11,29 +11,24 @@ afterAll(() => server.close());
 
 describe('flight adapter', () => {
     it('returns the closest flight on success', async () => {
+        const flight = createFlight();
         server.use(
             http.get('http://localhost:3001/api/v1/flight', () =>
-                HttpResponse.json({
-                    id: 'FL-8842',
-                    airline: 'British Airways',
-                    departure: { airport: 'LHR', time: '2026-07-10T10:30:00Z' },
-                    arrival: { airport: 'JFK', time: '2026-07-10T14:05:00Z' },
-                    stops: 1,
-                    price: { value: 21000, precision: 2, currency: 'GBP' },
-                }),
+                // HttpResponse.json({
+                //     id: 'FL-8842',
+                //     airline: 'British Airways',
+                //     departure: { airport: 'LHR', time: '2026-07-10T10:30:00Z' },
+                //     arrival: { airport: 'JFK', time: '2026-07-10T14:05:00Z' },
+                //     stops: 1,
+                //     price: { value: 21000, precision: 2, currency: 'GBP' },
+                // }),
+                HttpResponse.json(flight)
             ),
         );
 
         const result = await fetchClosestFlight();
 
-        expect(result).toEqual({
-            id: 'FL-8842',
-            airline: 'British Airways',
-            departure: { airport: 'LHR', time: '2026-07-10T10:30:00Z' },
-            arrival: { airport: 'JFK', time: '2026-07-10T14:05:00Z' },
-            stops: 1,
-            price: { value: 21000, precision: 2, currency: 'GBP' },
-        });
+        expect(result).toEqual(flight);
     });
 
     it('throws when the request fails', async () => {
