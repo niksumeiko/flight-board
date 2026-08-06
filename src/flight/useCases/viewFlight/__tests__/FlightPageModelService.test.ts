@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { createFlightPageModel } from '../FlightPageModelService.ts';
-import { type Flight } from '../../../domain/FlightService';
+import { createFlight } from '../../../domain/FlightBuilder.stub.ts';
 
 describe('flight page model', () => {
     it('returns model when the flight is being fetched', () => {
@@ -28,14 +28,9 @@ describe('flight page model', () => {
         const query = {
             isLoading: false,
             error: null,
-            data: {
-                id: 'FL-8842',
-                airline: 'British Airways',
-                departure: { airport: 'LHR', time: '2026-07-10T10:30:00Z' },
-                arrival: { airport: 'JFK', time: '2026-07-10T14:05:00Z' },
-                stops: 1,
-                price: { value: 21000, precision: 2, currency: 'GBP' },
-            } satisfies Flight,
+            data: createFlight()
+                .withDeparture('LHR')
+                .withArrival('JFK'),
         };
 
         const result = createFlightPageModel(query);
@@ -52,14 +47,7 @@ describe('flight page model', () => {
         const query = {
             isLoading: false,
             error: null,
-            data: {
-                id: 'FL-8842',
-                airline: 'British Airways',
-                departure: { airport: 'LHR', time: '2026-07-10T10:30:00Z' },
-                arrival: { airport: 'JFK', time: '2026-07-10T14:05:00Z' },
-                stops: 1,
-                price: { value: 21000, precision: 2, currency: 'GBP' },
-            } satisfies Flight,
+            data: createFlight().withDeparture('LHR', '2026-07-10T10:30:00Z'),
         };
 
         const result = createFlightPageModel(query);
@@ -71,14 +59,9 @@ describe('flight page model', () => {
         const query = {
             isLoading: false,
             error: null,
-            data: {
-                id: 'FL-8842',
-                airline: 'British Airways',
-                departure: { airport: 'LHR', time: '2026-07-10T10:30:00Z' },
-                arrival: { airport: 'JFK', time: '2026-07-10T14:05:00Z' },
-                stops: 1,
-                price: { value: 21000, precision: 2, currency: 'GBP' },
-            } satisfies Flight,
+            data: createFlight()
+                .withDeparture('LHR', '2026-07-10T10:30:00Z')
+                .withArrival('JFK', '2026-07-10T14:05:00Z'),
         };
 
         const result = createFlightPageModel(query);
@@ -90,14 +73,9 @@ describe('flight page model', () => {
         const query = {
             isLoading: false,
             error: null,
-            data: {
-                id: 'FL-8842',
-                airline: 'British Airways',
-                departure: { airport: 'LHR', time: '2026-07-10T10:30:00Z' },
-                arrival: { airport: 'JFK', time: '2026-07-10T14:05:00Z' },
-                stops: 1,
-                price: { value: 21000, precision: 2, currency: 'GBP' },
-            } satisfies Flight,
+            data: createFlight()
+                .withDeparture('LHR', '2026-07-10T10:30:00Z')
+                .withArrival('JFK', '2026-07-10T14:05:00Z'),
         };
 
         const result = createFlightPageModel(query);
@@ -109,14 +87,7 @@ describe('flight page model', () => {
         const query = {
             isLoading: false,
             error: null,
-            data: {
-                id: 'FL-1000',
-                airline: 'British Airways',
-                departure: { airport: 'LHR', time: '2026-07-10T10:30:00Z' },
-                arrival: { airport: 'JFK', time: '2026-07-10T14:05:00Z' },
-                stops: 0,
-                price: { value: 21000, precision: 2, currency: 'GBP' },
-            } satisfies Flight,
+            data: createFlight().withoutStops(),
         };
 
         const result = createFlightPageModel(query);
@@ -128,14 +99,7 @@ describe('flight page model', () => {
         const query = {
             isLoading: false,
             error: null,
-            data: {
-                id: 'FL-1001',
-                airline: 'British Airways',
-                departure: { airport: 'LHR', time: '2026-07-10T10:30:00Z' },
-                arrival: { airport: 'JFK', time: '2026-07-10T14:05:00Z' },
-                stops: 1,
-                price: { value: 21000, precision: 2, currency: 'GBP' },
-            } satisfies Flight,
+            data: createFlight().withStops(1),
         };
 
         const result = createFlightPageModel(query);
@@ -147,14 +111,7 @@ describe('flight page model', () => {
         const query = {
             isLoading: false,
             error: null,
-            data: {
-                id: 'FL-1002',
-                airline: 'British Airways',
-                departure: { airport: 'LHR', time: '2026-07-10T10:30:00Z' },
-                arrival: { airport: 'JFK', time: '2026-07-10T14:05:00Z' },
-                stops: 2,
-                price: { value: 21000, precision: 2, currency: 'GBP' },
-            } satisfies Flight,
+            data: createFlight().withStops(2),
         };
 
         const result = createFlightPageModel(query);
@@ -166,14 +123,7 @@ describe('flight page model', () => {
         const query = {
             isLoading: false,
             error: null,
-            data: {
-                id: 'FL-8842',
-                airline: 'British Airways',
-                departure: { airport: 'LHR', time: '2026-07-10T10:30:00Z' },
-                arrival: { airport: 'JFK', time: '2026-07-10T14:05:00Z' },
-                stops: 1,
-                price: { value: 21000, precision: 2, currency: 'GBP' },
-            } satisfies Flight,
+            data: createFlight().withPrice(210, 'GBP'),
         };
 
         const result = createFlightPageModel(query);
@@ -185,14 +135,7 @@ describe('flight page model', () => {
         const query = {
             isLoading: false,
             error: null,
-            data: {
-                id: 'FL-9001',
-                airline: 'Delta',
-                departure: { airport: 'JFK', time: '2026-08-01T06:00:00Z' },
-                arrival: { airport: 'LAX', time: '2026-08-01T12:30:00Z' },
-                stops: 0,
-                price: { value: 49900, precision: 2, currency: 'EUR' },
-            } satisfies Flight,
+            data: createFlight().withPrice(499, 'EUR'),
         };
 
         const result = createFlightPageModel(query);
